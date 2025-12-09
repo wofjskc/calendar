@@ -856,7 +856,7 @@
                         <div class="delivery-option" data-price="800">
                             <i class="fas fa-rocket"></i>
                             <div>Экспресс</div>
-                            <div>800 ₽ • до 24 часов</div>
+                            <div>800 ₽ • до 2 часов</div>
                         </div>
                     </div>
                 </div>
@@ -1312,17 +1312,7 @@
                 document.querySelector('.loading-bar').style.width = scrolled + '%';
             });
             
-            // Заполнение формы случайными данными для демонстрации
-            const names = ["Анна", "Мария", "Екатерина", "Александр", "Дмитрий", "Иван"];
-            const cities = ["Уфа", "Москва", "Санкт-Петербург", "Екатеринбург", "Новосибирск", "Казань"];
-            
-            document.getElementById('first-name').value = names[Math.floor(Math.random() * names.length)];
-            document.getElementById('last-name').value = "";
-            document.getElementById('phone').value = "+7 (9" + Math.floor(Math.random() * 900 + 100) + ") " + Math.floor(Math.random() * 900 + 100) + "-" + Math.floor(Math.random() * 9000 + 1000);
-            document.getElementById('email').value = "example" + Math.floor(Math.random() * 100) + "@gmail.com";
-            document.getElementById('address').value = "ул. Геологов, д. 53, кв. " + (Math.floor(Math.random() * 100) + 1);
-            document.getElementById('city').value = cities[Math.floor(Math.random() * cities.length)];
-            document.getElementById('postal-code').value = Math.floor(Math.random() * 90000 + 10000);
+
         }
 
         // Закрытие сообщения об успехе
@@ -1345,3 +1335,4 @@
     </script>
 </body>
 </html>
+
