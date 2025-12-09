@@ -125,40 +125,6 @@
             width: 100%;
         }
 
-        .cart-link {
-            background: linear-gradient(135deg, var(--winter-teal), var(--deep-navy));
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(69, 123, 157, 0.2);
-        }
-
-        .cart-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(69, 123, 157, 0.3);
-            background: linear-gradient(135deg, var(--deep-navy), var(--winter-teal));
-        }
-
-        .cart-link:after {
-            display: none;
-        }
-
-        .cart-link .cart-count-header {
-            background: linear-gradient(135deg, var(--soft-pink), #FF8BA0);
-            color: white;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            border: 2px solid white;
-        }
-
         /* Корзина в правом нижнем углу */
         .cart-fab {
             position: fixed;
@@ -759,13 +725,8 @@
                 <ul>
                     <li><a href="#products">Каталог</a></li>
                     <li><a href="#how">Как работает</a></li>
-                    <li><a href="#reviews">Отзывы</a></li>
+                    <!-- Кнопка "Отзывы" удалена -->
                     <li><a href="#contacts">Контакты</a></li>
-                    <li><a href="cart.html" class="cart-link">
-                        <i class="fas fa-shopping-bag"></i>
-                        Корзина
-                        <span class="cart-count-header" id="header-cart-count">3</span>
-                    </a></li>
                 </ul>
             </nav>
         </div>
@@ -822,7 +783,6 @@
                     <div class="product-badge">Хит сезона</div>
                     <div class="product-img">
                         <img src="https://wofjskc.github.io/calendar/image/gorodok-dekabrya.jpg" alt="Городок декабря" style="max-width: 100%; max-height: 100%; object-fit: cover;">
-
                     </div>
                     <div class="product-info">
                         <div class="product-header">
@@ -945,7 +905,7 @@
                     <div class="stat-icon">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <div class="stat-number">24</div>
+                    <div class="stat-number">31</div>
                     <div class="stat-label">Волшебных дня<br>в каждом календаре</div>
                 </div>
                 
@@ -961,15 +921,15 @@
                     <div class="stat-icon">
                         <i class="fas fa-shipping-fast"></i>
                     </div>
-                    <div class="stat-number">24ч</div>
-                    <div class="stat-label">Быстрая доставка<br>по всей стране</div>
+                    <div class="stat-number">2ч</div>
+                    <div class="stat-label">Быстрая доставка<br>по городу</div>
                 </div>
                 
                 <div class="stat-item">
                     <div class="stat-icon">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <div class="stat-number">5,000+</div>
+                    <div class="stat-number">100+</div>
                     <div class="stat-label">Счастливых семей<br>с нашей традицией</div>
                 </div>
             </div>
@@ -986,17 +946,11 @@
                         Создаем волшебные моменты ожидания Нового года. Наши календари — это больше чем подарки, это традиция.
                     </p>
                     <div class="social-links">
-                        <a href="#" class="social-link">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link">
+                        <a href="https://t.me/momtrads" target="_blank" class="social-link">
                             <i class="fab fa-telegram"></i>
                         </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-pinterest"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-youtube"></i>
+                        <a href="https://vk.com/club234482417" target="_blank" class="social-link">
+                            <i class="fab fa-vk"></i>
                         </a>
                     </div>
                 </div>
@@ -1078,35 +1032,11 @@
             if (cartFabCount) {
                 cartFabCount.textContent = totalItems;
             }
-            
-            // Обновляем счетчик в шапке
-            const headerCartCount = document.getElementById('header-cart-count');
-            if (headerCartCount) {
-                headerCartCount.textContent = totalItems;
-            }
-            
-            // Показываем/скрываем кнопку корзины если пусто
-            if (totalItems === 0) {
-                if (cartFabCount) cartFabCount.style.display = 'none';
-                if (headerCartCount) headerCartCount.style.display = 'none';
-            } else {
-                if (cartFabCount) cartFabCount.style.display = 'flex';
-                if (headerCartCount) headerCartCount.style.display = 'flex';
-            }
         }
 
         // Инициализация корзины
         let cartItems = getCartFromStorage();
         
-        // Если корзина пуста, инициализируем демо-данными
-        if (cartItems.length === 0) {
-            cartItems = [
-                { id: 1, name: "Городок декабря", price: 3499, quantity: 1 },
-                { id: 2, name: "Уютный декабрь", price: 3199, quantity: 1 },
-                { id: 4, name: "Кофейное путешествие", price: 4599, quantity: 1 }
-            ];
-            saveCartToStorage(cartItems);
-        }
 
         // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1299,4 +1229,3 @@
     </script>
 </body>
 </html>
-
