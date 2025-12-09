@@ -204,6 +204,7 @@
             border-bottom: 1px solid rgba(168, 218, 220, 0.3);
             align-items: center;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .cart-item:hover {
@@ -493,7 +494,7 @@
 
         .delivery-options {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 15px;
             margin-top: 10px;
         }
@@ -730,7 +731,7 @@
                 <div class="logo-icon">
                     <i class="fas fa-snowflake"></i>
                 </div>
-                <span>Повод</span>
+                <span>Повод Для Радости</span>
             </a>
             
             <div class="nav-links">
@@ -773,7 +774,7 @@
                     
                     <div class="summary-row">
                         <div class="summary-label">Доставка</div>
-                        <div class="summary-value" id="delivery-cost">500 ₽</div>
+                        <div class="summary-value" id="delivery-cost">0 ₽</div>
                     </div>
                     
                     <div class="summary-row">
@@ -783,7 +784,7 @@
                     
                     <div class="summary-row">
                         <div class="summary-label">Итого к оплате</div>
-                        <div class="summary-value summary-total" id="total-price">10,797 ₽</div>
+                        <div class="summary-value summary-total" id="total-price">10,297 ₽</div>
                     </div>
                     
                     <div class="discount-section">
@@ -847,7 +848,7 @@
                 <div class="form-group">
                     <label class="form-label">Способ доставки</label>
                     <div class="delivery-options">
-                        <div class="delivery-option" data-price="0">
+                        <div class="delivery-option selected" data-price="0">
                             <i class="fas fa-box-open"></i>
                             <div>Самовывоз</div>
                             <div>Бесплатно • сегодня</div>
@@ -855,7 +856,7 @@
                         <div class="delivery-option" data-price="800">
                             <i class="fas fa-rocket"></i>
                             <div>Экспресс</div>
-                            <div>800 ₽ • до 2 часов</div>
+                            <div>800 ₽ • до 24 часов</div>
                         </div>
                     </div>
                 </div>
@@ -899,9 +900,22 @@
                 
                 <div class="footer-column">
                     <h3>Контакты</h3>
-                    <a href="#"><i class="fas fa-phone"></i> +7 (812) 123-45-67</a>
-                    <a href="#"><i class="fas fa-envelope"></i> info@causeforjoy.ru</a>
-                    <a href="#"><i class="fas fa-map-marker-alt"></i> г. Уфа, ул. Геологов, 53</a>
+                    <div class="footer-contact">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>г.Уфа, ул. Геологов, 53</span>
+                    </div>
+                    <div class="footer-contact">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (812) 123-45-67</span>
+                    </div>
+                    <div class="footer-contact">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@causeforjoy.ru</span>
+                    </div>
+                    <div class="footer-contact">
+                        <i class="fas fa-clock"></i>
+                        <span>Ежедневно 10:00-21:00</span>
+                    </div>
                 </div>
                 
                 <div class="footer-column">
@@ -933,7 +947,7 @@
         <div style="background: var(--ice-blue); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                 <span style="color: var(--text-light);">Номер заказа:</span>
-                <span style="font-weight: 600; color: var(--deep-navy);" id="order-number">PDD-2025-4872</span>
+                <span style="font-weight: 600; color: var(--deep-navy);" id="order-number">ADV-2023-4872</span>
             </div>
             <div style="display: flex; justify-content: space-between;">
                 <span style="color: var(--text-light);">Сумма:</span>
@@ -988,10 +1002,10 @@
         // Получение иконки по ID товара
         function getProductIcon(productId) {
             const icons = {
-                1: 'tree',
-                2: 'leaf',
-                3: 'snowman',
-                4: 'mug-hot'
+                1: 'city',      // Городок декабря
+                2: 'leaf',      // Уютный декабрь
+                3: 'snowman',   // Детское чудо
+                4: 'mug-hot'    // Кофейное путешествие
             };
             return icons[productId] || 'gift';
         }
@@ -999,7 +1013,7 @@
         // Получение описания по ID товара
         function getProductDescription(productId) {
             const descriptions = {
-                1: "24 окошка с премиальным шоколадом, миниатюрами винтажных игрушек и рецептами зимнего чая.",
+                1: "31 домик со скрытыми сюрпризами, снежный декор, ёлки, дорожки и праздничный дом в центре создают настоящее зимнее чудо.",
                 2: "Ароматные свечи, органические чаи, деревянные украшения и рецепты для зимних вечеров.",
                 3: "Мини-игрушки, развивающие игры, безопасные сладости и задания для творчества каждый день.",
                 4: "24 сорта кофе от обжарщиков со всего мира, десертные сиропы и аксессуары для бариста."
@@ -1030,6 +1044,14 @@
                 `;
                 itemsCount.textContent = "(0)";
                 itemsCountSummary.textContent = "0";
+                
+                // Сброс цен к 0 при пустой корзине
+                document.getElementById('subtotal').textContent = "0 ₽";
+                document.getElementById('delivery-cost').textContent = "0 ₽";
+                document.getElementById('total-price').textContent = "0 ₽";
+                document.getElementById('order-total').textContent = "0 ₽";
+                document.getElementById('discount-value').textContent = "-0 ₽";
+                
                 return;
             }
             
@@ -1070,11 +1092,28 @@
         // Обновление общей суммы
         function updateCartTotal() {
             const cartItems = getCartFromStorage();
-            const deliveryCost = parseInt(document.getElementById('delivery-cost').textContent.replace(' ₽', '').replace(',', ''));
+            
+            if (cartItems.length === 0) {
+                // Если корзина пуста, сбрасываем все цены к 0
+                document.getElementById('subtotal').textContent = "0 ₽";
+                document.getElementById('delivery-cost').textContent = "0 ₽";
+                document.getElementById('total-price').textContent = "0 ₽";
+                document.getElementById('order-total').textContent = "0 ₽";
+                document.getElementById('discount-value').textContent = "-0 ₽";
+                return;
+            }
+            
+            const deliveryCost = parseInt(document.getElementById('delivery-cost').textContent.replace(' ₽', '').replace(',', '')) || 0;
             let discount = 0;
             
+            // Проверяем, есть ли примененная скидка
+            const discountText = document.getElementById('discount-value').textContent;
+            if (discountText.includes('-') && discountText !== '-0 ₽') {
+                discount = parseInt(discountText.replace('-', '').replace(' ₽', '').replace(',', '')) || 0;
+            }
+            
             const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal + deliveryCost - discount;
+            const total = Math.max(0, subtotal + deliveryCost - discount);
             
             document.getElementById('subtotal').textContent = `${subtotal.toLocaleString('ru-RU')} ₽`;
             document.getElementById('total-price').textContent = `${total.toLocaleString('ru-RU')} ₽`;
@@ -1135,8 +1174,15 @@
                 const messageEl = document.getElementById('discount-message');
                 const discountValueEl = document.getElementById('discount-value');
                 
-                if (discountCode === "JOY2023") {
+                if (discountCode === "JOY2025") {
                     const cartItems = getCartFromStorage();
+                    if (cartItems.length === 0) {
+                        messageEl.textContent = "Корзина пуста, промокод не может быть применен";
+                        messageEl.style.color = "#e63946";
+                        messageEl.style.display = "block";
+                        return;
+                    }
+                    
                     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                     const discount = 1000;
                     
@@ -1148,6 +1194,13 @@
                     updateCartTotal();
                 } else if (discountCode === "WINTER15") {
                     const cartItems = getCartFromStorage();
+                    if (cartItems.length === 0) {
+                        messageEl.textContent = "Корзина пуста, промокод не может быть применен";
+                        messageEl.style.color = "#e63946";
+                        messageEl.style.display = "block";
+                        return;
+                    }
+                    
                     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                     const discount = Math.round(subtotal * 0.15);
                     
@@ -1219,7 +1272,7 @@
                 }
                 
                 // Генерация номера заказа
-                const orderNumber = `ADV-${new Date().getFullYear()}-${Math.floor(Math.random() * 9000) + 1000}`;
+                const orderNumber = `PDD-${new Date().getFullYear()}-${Math.floor(Math.random() * 9000) + 1000}`;
                 document.getElementById('order-number').textContent = orderNumber;
                 
                 // Очистка корзины
@@ -1261,13 +1314,13 @@
             
             // Заполнение формы случайными данными для демонстрации
             const names = ["Анна", "Мария", "Екатерина", "Александр", "Дмитрий", "Иван"];
-            const cities = ["Москва", "Санкт-Петербург", "Екатеринбург", "Новосибирск", "Казань"];
+            const cities = ["Уфа", "Москва", "Санкт-Петербург", "Екатеринбург", "Новосибирск", "Казань"];
             
             document.getElementById('first-name').value = names[Math.floor(Math.random() * names.length)];
             document.getElementById('last-name').value = "";
             document.getElementById('phone').value = "+7 (9" + Math.floor(Math.random() * 900 + 100) + ") " + Math.floor(Math.random() * 900 + 100) + "-" + Math.floor(Math.random() * 9000 + 1000);
             document.getElementById('email').value = "example" + Math.floor(Math.random() * 100) + "@gmail.com";
-            document.getElementById('address').value = "ул. Примерная, д. " + (Math.floor(Math.random() * 100) + 1) + ", кв. " + (Math.floor(Math.random() * 100) + 1);
+            document.getElementById('address').value = "ул. Геологов, д. 53, кв. " + (Math.floor(Math.random() * 100) + 1);
             document.getElementById('city').value = cities[Math.floor(Math.random() * cities.length)];
             document.getElementById('postal-code').value = Math.floor(Math.random() * 90000 + 10000);
         }
@@ -1292,5 +1345,3 @@
     </script>
 </body>
 </html>
-
-
